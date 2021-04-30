@@ -1,0 +1,26 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
+  <a class="navbar-brand" href="#">miBodega</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <% unless current_user.present? %>  
+        <li class="nav-item active">
+          <%= link_to "Login", new_user_session_path , class: 'nav-link'%>
+        </li>
+        <li class="nav-item active">
+          <%= link_to "Registrer", new_user_registration_path , class: 'nav-link'%>
+        </li>
+
+      <% else %>
+        <li class="nav-item active">
+          <%= link_to 'Exit', destroy_user_session_path, method: :delete, class: 'nav-link' %>
+        </li>
+
+
+      <% end %>
+      </ul>
+  </div>
+</nav>
+
