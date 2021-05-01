@@ -1,2 +1,0 @@
-
-    t.index ["user_id", "account_id"], name: "index_sets_on_user_id_and_account_id", unique: true
