@@ -1,0 +1,9 @@
+<div class="container text-center">
+  <h1>Invitates:</h1>
+
+  <%= form_with url: "#{request.original_url}"  do |form| %>
+    <%= form.label :email, "Please put the email of user to invite:" %><br/>
+    <%= form.text_field :email %>
+    <%= form.submit "Invite" %>
+  <% end %>
+</div>

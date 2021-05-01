@@ -3,7 +3,7 @@ class AccountsController < ApplicationController
 
   # GET /accounts or /accounts.json
   def index
-    @accounts = Account.all
+    @accounts = current_user.accounts
   end
 
   # GET /accounts/1 or /accounts/1.json
@@ -22,7 +22,7 @@ class AccountsController < ApplicationController
   # POST /accounts or /accounts.json
   def create
     @account = Account.new(account_params)
-
+    @account.user_id = current_user.id
     respond_to do |format|
       if @account.save
         format.html { redirect_to @account, notice: "Account was successfully created." }
@@ -49,10 +49,14 @@ class AccountsController < ApplicationController
 
   # DELETE /accounts/1 or /accounts/1.json
   def destroy
-    @account.destroy
-    respond_to do |format|
-      format.html { redirect_to accounts_url, notice: "Account was successfully destroyed." }
-      format.json { head :no_content }
+    if current_user.id != @account.user_id
+      render json: "vos no podes borrar esto mi socio"
+    else
+      @account.destroy
+      respond_to do |format|
+        format.html { redirect_to accounts_url, notice: "Account was successfully destroyed." }
+        format.json { head :no_content }
+      end
     end
   end
 

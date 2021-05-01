@@ -10,5 +10,6 @@
   <%= @account.name %>
 </p>
 
+<td><%= link_to 'Invite', account_invite_path(@account)  %></td>
 <%= link_to 'Edit', edit_account_path(@account) %> |
 <%= link_to 'Back', accounts_path %>
