@@ -49,21 +49,30 @@ class AccountsController < ApplicationController
 
   # DELETE /accounts/1 or /accounts/1.json
   def destroy
-    if current_user.id != @account.user_id
-      render json: "vos no podes borrar esto mi socio"
-    else
-      @account.destroy
-      respond_to do |format|
-        format.html { redirect_to accounts_url, notice: "Account was successfully destroyed." }
-        format.json { head :no_content }
+    
+    unless @account == 0
+      if current_user.id != @account.user_id 
+          render json: "vos no podes borrar esto mi socio"
+      else
+        @account.destroy
+        respond_to do |format|
+          format.html { redirect_to accounts_url, notice: "Account was successfully destroyed." }
+          format.json { head :no_content }
+        end
       end
+    else
+      render json: "al parecer ya fue borrado"
     end
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_account
-      @account = Account.find(params[:id])
+      begin
+        @account = Account.find(params[:id])
+      rescue
+        @account = 0
+      end
     end
 
     # Only allow a list of trusted parameters through.
