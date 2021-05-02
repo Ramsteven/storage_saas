@@ -8,6 +8,7 @@ class AccountsController < ApplicationController
 
   # GET /accounts/1 or /accounts/1.json
   def show
+    current_user.update( current_tenant_id: params[:id] )
   end
 
   # GET /accounts/new
