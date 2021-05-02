@@ -26,6 +26,10 @@
           <%= link_to current_user.email, '#',  class: 'nav-link'%>
         </li>
 
+        <li class="nav-item">
+          <%= link_to ActsAsTenant.current_tenant ? ActsAsTenant.current_tenant.name : "nada", '#',  class: 'nav-link'%>
+        </li>
+
       <% end %>
       </ul>
   </div>

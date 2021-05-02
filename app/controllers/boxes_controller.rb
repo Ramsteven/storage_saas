@@ -1,9 +1,10 @@
 class BoxesController < ApplicationController
   before_action :set_box, only: %i[ show edit update destroy ]
-
+  before_action { @current_tenant = ActsAsTenant.current_tenant }
   # GET /boxes or /boxes.json
   def index
     @boxes = Box.all
+    set_tenant(Account.find(params[:account_id]))
   end
 
   # GET /boxes/1 or /boxes/1.json
@@ -12,6 +13,7 @@ class BoxesController < ApplicationController
 
   # GET /boxes/new
   def new
+    byebug
     @box = Box.new
   end
 
@@ -64,6 +66,6 @@ class BoxesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def box_params
-      params.require(:box).permit(:account_id, :description)
+      params.require(:box).permit( :description)
     end
 end
