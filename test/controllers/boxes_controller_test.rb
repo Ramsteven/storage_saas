@@ -17,7 +17,7 @@ class BoxesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create box" do
     assert_difference('Box.count') do
-      post boxes_url, params: { box: { accounts_id: @box.accounts_id, description: @box.description } }
+      post boxes_url, params: { box: { account_id: @box.account_id, description: @box.description } }
     end
 
     assert_redirected_to box_url(Box.last)
@@ -34,7 +34,7 @@ class BoxesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update box" do
-    patch box_url(@box), params: { box: { accounts_id: @box.accounts_id, description: @box.description } }
+    patch box_url(@box), params: { box: { account_id: @box.account_id, description: @box.description } }
     assert_redirected_to box_url(@box)
   end
 

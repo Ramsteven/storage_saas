@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_01_170556) do
+ActiveRecord::Schema.define(version: 2021_05_02_004300) do
 
   create_table "accounts", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -21,11 +21,11 @@ ActiveRecord::Schema.define(version: 2021_05_01_170556) do
   end
 
   create_table "boxes", force: :cascade do |t|
-    t.integer "accounts_id", null: false
+    t.integer "account_id", null: false
     t.string "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["accounts_id"], name: "index_boxes_on_accounts_id"
+    t.index ["account_id"], name: "index_boxes_on_account_id"
   end
 
   create_table "relations", force: :cascade do |t|
@@ -50,7 +50,7 @@ ActiveRecord::Schema.define(version: 2021_05_01_170556) do
   end
 
   add_foreign_key "accounts", "users"
-  add_foreign_key "boxes", "accounts", column: "accounts_id"
+  add_foreign_key "boxes", "accounts"
   add_foreign_key "relations", "accounts"
   add_foreign_key "relations", "users"
 end

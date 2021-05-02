@@ -3,7 +3,10 @@ class ApplicationController < ActionController::Base
   before_action :set_tenant 
 
   def set_tenant
-    # current_account = Account.find_it
-    set_current_tenant(current_user)
+    if current_tenant.nil?
+      current_account = Account.where( id: params[:account_id].to_i).first
+      set_current_tenant(current_account)
+      byebug
+    end
   end
 end

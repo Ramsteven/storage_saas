@@ -4,4 +4,5 @@ class Account < ApplicationRecord
   #belongs_to :user
   has_many :relations 
   has_many :users, through: :relations
+  has_many :boxes
 end

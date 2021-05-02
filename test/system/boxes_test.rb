@@ -14,7 +14,7 @@ class BoxesTest < ApplicationSystemTestCase
     visit boxes_url
     click_on "New Box"
 
-    fill_in "Accounts", with: @box.accounts_id
+    fill_in "Account", with: @box.account_id
     fill_in "Description", with: @box.description
     click_on "Create Box"
 
@@ -26,7 +26,7 @@ class BoxesTest < ApplicationSystemTestCase
     visit boxes_url
     click_on "Edit", match: :first
 
-    fill_in "Accounts", with: @box.accounts_id
+    fill_in "Account", with: @box.account_id
     fill_in "Description", with: @box.description
     click_on "Update Box"
 

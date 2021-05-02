@@ -1,3 +1,3 @@
 class Box < ApplicationRecord
-  belongs_to :accounts
+  acts_as_tenant :account
 end
