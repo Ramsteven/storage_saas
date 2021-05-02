@@ -1,19 +1,21 @@
 class BoxesController < ApplicationController
+  set_current_tenant_through_filter
   before_action :set_box, only: %i[ show edit update destroy ]
-  before_action { @current_tenant = ActsAsTenant.current_tenant }
+  before_action :set_tenant
+  
+  
   # GET /boxes or /boxes.json
   def index
     @boxes = Box.all
-    set_tenant(Account.find(params[:account_id]))
   end
 
   # GET /boxes/1 or /boxes/1.json
   def show
+    byebug
   end
 
   # GET /boxes/new
   def new
-    byebug
     @box = Box.new
   end
 
@@ -58,6 +60,9 @@ class BoxesController < ApplicationController
     end
   end
 
+  
+
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_box
@@ -68,4 +73,17 @@ class BoxesController < ApplicationController
     def box_params
       params.require(:box).permit( :description)
     end
+
+    def set_tenant
+      unless params[:account_id].nil?
+        @current_account = Account.where(id: params[:account_id]).first
+        set_current_tenant(@current_account)
+      end
+      set_current_tenant(@current_account)
+    end
+    
+    def current_account
+
+    end
+
 end
