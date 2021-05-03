@@ -1,6 +1,12 @@
 Rails.application.routes.draw do
   
-  resources :boxes
+  resources :boxes do
+    resources :items
+  end
+  namespace :box do
+    resources :items
+  end
+
   resources :accounts do
     post '/invite', to: 'relations#invite_user'
     get '/invite', to: 'relations#index'
