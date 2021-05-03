@@ -9,6 +9,7 @@ class ItemsController < ApplicationController
 
   # GET boxes/1/items/1
   def show
+    byebug
   end
 
   # GET boxes/1/items/new
@@ -59,6 +60,6 @@ class ItemsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def item_params
-      params.require(:item).permit(:description, :box_id)
+      params.require(:item).permit(:description, :box_id, :image)
     end
 end
