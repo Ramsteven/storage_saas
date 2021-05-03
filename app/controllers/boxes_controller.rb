@@ -22,16 +22,19 @@ class BoxesController < ApplicationController
 
   # POST /boxes or /boxes.json
   def create
-    @box = Box.new(box_params)
-
-    respond_to do |format|
-      if @box.save
-        format.html { redirect_to @box, notice: "Box was successfully created." }
-        format.json { render :show, status: :created, location: @box }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @box.errors, status: :unprocessable_entity }
+    unless box_check
+      @box = Box.new(box_params)
+      respond_to do |format|
+        if @box.save 
+          format.html { redirect_to @box, notice: "Box was successfully created." }
+          format.json { render :show, status: :created, location: @box }
+        else
+          format.html { render :new, status: :unprocessable_entity }
+          format.json { render json: @box.errors, status: :unprocessable_entity }
+        end
       end
+    else
+        redirect_to boxes_path ,notice: "You need update your plan for create more boxes"
     end
   end
 
@@ -57,9 +60,6 @@ class BoxesController < ApplicationController
     end
   end
 
-  
-
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_box
@@ -71,4 +71,16 @@ class BoxesController < ApplicationController
       params.require(:box).permit( :description)
     end
 
+    def box_check
+      current_tenant = ActsAsTenant.current_tenant 
+      if current_tenant.plan  == "free"
+          current_tenant.boxes.count >= 1
+          
+      elsif current_tenant.plan  == "moderate"
+          current_tenant.boxes.count >= 5
+
+      else current_tenant.plan  == "unlimitess"
+        false
+      end
+  end  
 end
