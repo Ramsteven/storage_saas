@@ -14,6 +14,7 @@ class AccountsController < ApplicationController
 
   # GET /accounts/new
   def new
+    byebug
     @account = Account.new
   end
 
@@ -23,6 +24,7 @@ class AccountsController < ApplicationController
 
   # POST /accounts or /accounts.json
   def create
+    byebug
     @account = Account.new(account_params)
     byebug
     @account.user_id = current_user.id

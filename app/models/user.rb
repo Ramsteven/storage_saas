@@ -6,5 +6,5 @@ class User < ApplicationRecord
 
   has_many :relations, dependent: :destroy
   has_many :accounts, through: :relations
-
+  accepts_nested_attributes_for :accounts
 end
