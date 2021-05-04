@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   set_current_tenant_through_filter
   before_action :authenticate_user!
   before_action :set_tenant, except: { :sessionsController => [:new,:create] } 
-  before_action :configure_permitted_parameters, if: :devise_controller?
+  # before_action :configure_permitted_parameters, if: :devise_controller?
  
   def set_tenant
     if current_user
@@ -11,9 +11,9 @@ class ApplicationController < ActionController::Base
     end
   end
 
- protected
+ # protected
 
-  def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:email, :password, accounts_attributes: [:name, :plan]])
-  end
+ #  def configure_permitted_parameters
+ #    devise_parameter_sanitizer.permit(:sign_up, keys: [:email, :password, accounts_attributes: [:name, :plan]])
+ #  end
 end
