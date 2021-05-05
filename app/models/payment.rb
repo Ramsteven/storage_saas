@@ -37,7 +37,7 @@ class Payment < ApplicationRecord
     update_stripe_customer_id(customer)
     Stripe::Subscription.create customer: customer.id,
                                 items: [
-                               {price: 'price_1Ina4rBje2Voz840PTdbpD9A'},
+                               {price: 'price_1IndU1Bje2Voz8401SdrQuM0'},
                                 ]
 
 #    customer = Stripe::Customer.create email: email, card: token
