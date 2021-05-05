@@ -10,11 +10,11 @@
         resize_to_limit: [100, 100]
       )%>
 
-<p>
-  <b>Box:</b>
-  <%= @item.box %>
-</p>
-
+      <%= form_with url: "#{request.original_url}"  do |form| %>
+        <%= form.label :box, "Please put the box to move:" %><br/>
+        <%= form.select :box, current_tenant.boxes.map(&:description) %>
+        <%= form.submit "move" %>
+     <% end %>
 
 <%= link_to 'Edit', edit_box_item_path(@item.box, @item) %> |
 <%= link_to 'Back', box_items_path(@item.box) %>

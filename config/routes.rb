@@ -4,7 +4,9 @@ Rails.application.routes.draw do
     resources :items
   end
   namespace :box do
-    resources :items
+    resources :items do
+      post '/move', to: 'boxes#move'
+    end
   end
 
   resources :accounts do

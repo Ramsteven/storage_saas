@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   set_current_tenant_through_filter
   before_action :authenticate_user!
+
   before_action :set_tenant, except: { :sessionsController => [:new,:create] } 
   # before_action :configure_permitted_parameters, if: :devise_controller?
  
