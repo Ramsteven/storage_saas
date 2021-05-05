@@ -10,11 +10,28 @@ class Payment < ApplicationRecord
     (Date.today.year..(Date.today.year+10)).to_a
   end
 
-  def process_payment
-    customer = Stripe::Customer.create email: email, source: 'tok_visa'
+  def process_payment_moderate
+    customer = Stripe::Customer.create email: email, card: token
     Stripe::Charge.create customer: customer.id,
                                     amount: 1000,
                                     description: 'Premium',
                                     currency: 'usd'
   end
+
+ def process_payment_unlimitess
+    customer = Stripe::Customer.create email: email, card: token
+    Stripe::Charge.create customer: customer.id,
+                                    amount: 10000,
+                                    description: 'Premium',
+                                    currency: 'usd'
+  end
+
+ def process_payment_free
+    customer = Stripe::Customer.create email: email, card: token
+    Stripe::Charge.create customer: customer.id,
+                                    amount: 50,
+                                    description: 'Premium',
+                                    currency: 'usd'
+  end
+
 end

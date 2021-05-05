@@ -1,6 +1,5 @@
 class RegistrationsController < Devise::RegistrationsController
     def create
-      byebug
       build_resource(sign_up_params)
 
       resource.class.transaction do
@@ -14,7 +13,15 @@ class RegistrationsController < Devise::RegistrationsController
             flash[:error] = "Please check registration errors" unless @payment.valid?
 
           begin
-            @payment.process_payment
+            if params[:accounts][:plan] == "free"
+              @payment.process_payment_free
+            elsif params[:accounts][:plan] == "moderate"
+              @payment.process_payment_moderate
+            elsif params[:accounts][:plan] == "unlimitess"
+              @payment.process_payment_unlimitess
+            else
+              flash[:error] = "You need choose one plan for continue"
+            end
             @payment.save
           rescue Exception => e
             flash[:error] = e.message
@@ -24,18 +31,16 @@ class RegistrationsController < Devise::RegistrationsController
           end
 
           if resource.active_for_authentication?
-
             set_flash_message :notice, :signed_up if is_flashing_format?
             sign_up(resource_name, resource)
             respond_with resource, location: after_sign_up_path_for(resource)
-
+            byebug
+            resource.accounts.create(user_id: resource.id, name: params[:accounts][:name], plan:params[:accounts][:plan])
           else
             set_flash_message :notice, :"signed_up_but_#{resource.inactive_message}" if is_flashing_format?
             expire_data_after_sign_in!
             respond_with resource, location: after_inactive_sign_up_path_for(resource)
-
           end
-
         else
             clean_up_passwords resource
             set_minimum_password_length

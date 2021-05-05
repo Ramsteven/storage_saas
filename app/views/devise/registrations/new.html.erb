@@ -28,6 +28,18 @@
   <%#   <%= f.password_field :password_confirmation, autocomplete: "new-password" %1> %>
   <%# </div> %>
 
+    <%= fields_for :accounts do |account| %>
+        <div class="field">
+          <%= account.label :name, "Account Name" %>
+          <%= account.text_field :name %>
+        </div>
+
+        <div class="field">    
+         <%= account.label :plan, "Choose your Plan" %>
+         <%= account.select :plan, ["",'free','moderate','unlimitess'] %>
+        </div>
+    <% end %>
+
   <%= fields_for( :payment ) do |p| %>
     <div class="row col-md-12">
       <div class="form-group col-md-4 no-left-padding">

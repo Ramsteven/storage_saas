@@ -12,64 +12,6 @@ class AccountsController < ApplicationController
     @boxes = Box.all
   end
 
-  # GET /accounts/new
-  def new
-    byebug
-    @account = Account.new
-  end
-
-  # GET /accounts/1/edit
-  def edit
-  end
-
-  # POST /accounts or /accounts.json
-  def create
-    byebug
-    @account = Account.new(account_params)
-    byebug
-    @account.user_id = current_user.id
-    respond_to do |format|
-      if @account.save
-        format.html { redirect_to @account, notice: "Account was successfully created." }
-        format.json { render :show, status: :created, location: @account }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @account.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PATCH/PUT /accounts/1 or /accounts/1.json
-  def update
-    respond_to do |format|
-      if @account.update(account_params)
-        format.html { redirect_to @account, notice: "Account was successfully updated." }
-        format.json { render :show, status: :ok, location: @account }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @account.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /accounts/1 or /accounts/1.json
-  def destroy
-    
-    unless @account == 0
-      if current_user.id != @account.user_id 
-          render json: "vos no podes borrar esto mi socio"
-      else
-        @account.destroy
-        respond_to do |format|
-          format.html { redirect_to accounts_url, notice: "Account was successfully destroyed." }
-          format.json { head :no_content }
-        end
-      end
-    else
-      render json: "al parecer ya fue borrado"
-    end
-  end
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_account
@@ -84,7 +26,4 @@ class AccountsController < ApplicationController
     def account_params
       params.require(:account).permit(:plan, :name)
     end
-
-    
-
 end

@@ -1,21 +1,28 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>User:</strong>
-  <%= @account.user_id %>
-</p>
 
-<p>
-  <strong>Account:</strong>
+<h3>
+  <strong>Name Account:</strong>
   <%= @account.name %>
+</h3>
+<p>
+  <strong>Owner:</strong>
+  <%# <%= User.find(current_tenant.user_id).email %1> %>
+</p>
+<p>
+  <% if  @account.plan == "moderate"%>
+    <strong>Plan:</strong> <%=@account.plan%> max 5 boxes
+  <% elsif @account.plan == 'unlimitess' %> 
+    <strong>Plan:</strong> <%=@account.plan%> unlimitess boxes
+  <% else %>
+    <strong>Plan:</strong> <%=@account.plan%> one box only
+  <% end  %>
 </p>
 
-<%= link_to 'New Box', new_box_path(account_id: params[:account_id]) %>
+<hr>
+  <%= link_to 'Go to Boxes', boxes_path %> <br>
+<hr>
 
-
-
-
-<td><%= link_to 'Invite', account_invite_path(@account)  %></td>
-<%= link_to 'Edit', edit_account_path(@account) %> |
-<%= link_to 'Back', accounts_path %>
-<%= link_to 'Go to Boxes', boxes_path %>
+<%= link_to 'Invite users', account_invite_path(@account)  %><br>
+<%= link_to 'Edit', edit_account_path(@account) %>  |
+<%= link_to 'Back', accounts_path %> <br>

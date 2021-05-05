@@ -1,14 +1,9 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Account:</strong>
-  <%= @box.account_id %>
-</p>
 
 <p>
-  <strong>Description:</strong>
+  <strong>Name box:</strong>
   <%= @box.description %>
 </p>
-
 <%= link_to 'Edit', edit_box_path(@box) %> |
 <%= link_to 'Back', boxes_path %>

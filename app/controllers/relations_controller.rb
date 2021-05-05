@@ -6,12 +6,11 @@ class RelationsController < ApplicationController
       member = user.accounts
       begin 
         member << account
-        render json: "welcome"
+        redirect_to account ,notice: "This user been successfully invited"
       rescue
-        render json: "This contact already follow this account"
-      end
+        redirect_to account ,notice: "This contact already follow this account"       end
     else
-      render json: "any user have this email"
+        redirect_to account ,notice: "no user has this email"
     end
   end
 end
