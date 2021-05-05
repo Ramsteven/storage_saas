@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_04_161719) do
+ActiveRecord::Schema.define(version: 2021_05_05_043455) do
 
   create_table "accounts", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -91,6 +91,9 @@ ActiveRecord::Schema.define(version: 2021_05_04_161719) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "current_tenant_id"
+    t.string "plan"
+    t.string "stripe_customer_id"
+    t.string "subscription_status"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

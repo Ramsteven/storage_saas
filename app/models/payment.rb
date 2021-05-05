@@ -12,10 +12,13 @@ class Payment < ApplicationRecord
 
   def process_payment_moderate
     customer = Stripe::Customer.create email: email, card: token
+    #update customer_id
+    update_stripe_customer_id(customer)
     Stripe::Subscription.create customer: customer.id,
                                 items: [
                                {price: 'price_1Ina4rBje2Voz840ckaY3wvk'},
-                                ]
+                           ]
+  
   end
 
  
@@ -31,6 +34,7 @@ class Payment < ApplicationRecord
 
  def process_payment_unlimitess
     customer = Stripe::Customer.create email: email, card: token
+    update_stripe_customer_id(customer)
     Stripe::Subscription.create customer: customer.id,
                                 items: [
                                {price: 'price_1Ina4rBje2Voz840PTdbpD9A'},
@@ -44,7 +48,8 @@ class Payment < ApplicationRecord
   end
 
  def process_payment_free
-     customer = Stripe::Customer.create email: email, card: token
+    customer = Stripe::Customer.create email: email, card: token
+    update_stripe_customer_id(customer)
     Stripe::Subscription.create customer: customer.id,
                                 items: [
                                {price: 'price_1Ina4rBje2Voz840jEauJF3v'},
@@ -58,4 +63,7 @@ class Payment < ApplicationRecord
     #                                 currency: 'usd'
   end
 
+  def update_stripe_customer_id(customer)
+    User.find(self.user_id).update(stripe_customer_id: customer[:id])
+  end
 end
