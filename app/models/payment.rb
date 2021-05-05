@@ -12,26 +12,50 @@ class Payment < ApplicationRecord
 
   def process_payment_moderate
     customer = Stripe::Customer.create email: email, card: token
-    Stripe::Charge.create customer: customer.id,
-                                    amount: 1000,
-                                    description: 'Premium',
-                                    currency: 'usd'
+    Stripe::Subscription.create customer: customer.id,
+                                items: [
+                               {price: 'price_1Ina4rBje2Voz840ckaY3wvk'},
+                                ]
   end
+
+ 
+
+
+  # def process_payment_moderate
+  #   customer = Stripe::Customer.create email: email, card: token
+  #   Stripe::Charge.create customer: customer.id,
+  #                                   amount: 1000,
+  #                                   description: 'Premium',
+  #                                   currency: 'usd'
+  # end
 
  def process_payment_unlimitess
     customer = Stripe::Customer.create email: email, card: token
-    Stripe::Charge.create customer: customer.id,
-                                    amount: 10000,
-                                    description: 'Premium',
-                                    currency: 'usd'
+    Stripe::Subscription.create customer: customer.id,
+                                items: [
+                               {price: 'price_1Ina4rBje2Voz840PTdbpD9A'},
+                                ]
+
+#    customer = Stripe::Customer.create email: email, card: token
+#     Stripe::Charge.create customer: customer.id,
+#                                     amount: 10000,
+#                                     description: 'Premium',
+#                                     currency: 'usd'
   end
 
  def process_payment_free
-    customer = Stripe::Customer.create email: email, card: token
-    Stripe::Charge.create customer: customer.id,
-                                    amount: 50,
-                                    description: 'Premium',
-                                    currency: 'usd'
+     customer = Stripe::Customer.create email: email, card: token
+    Stripe::Subscription.create customer: customer.id,
+                                items: [
+                               {price: 'price_1Ina4rBje2Voz840jEauJF3v'},
+                                ]
+
+
+    # customer = Stripe::Customer.create email: email, card: token
+    # Stripe::Charge.create customer: customer.id,
+    #                                 amount: 50,
+    #                                 description: 'Premium',
+    #                                 currency: 'usd'
   end
 
 end
