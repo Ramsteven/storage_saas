@@ -7,10 +7,9 @@
 </h3>
 <p>
   <strong>Owner:</strong>
-  <%# <%= User.find(current_tenant.user_id).email %1> %>
+  <%= User.find(@account.user_id).email%>
 </p>
 <p>
-
   <% if  @account.plan == "moderate"%>
     <strong>Plan:</strong> <%=@account.plan%> max 5 boxes
   <% elsif @account.plan == 'unlimitess' %> 

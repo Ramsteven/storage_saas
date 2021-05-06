@@ -2,12 +2,13 @@
 
 <h1>Please choose your account</h1>
 
-<table>
+<p> Click name of your choice</p>
+<table class=" table text-center">
   <thead>
     <tr>
-      <th>User</th>
-      <th>Name</th>
-      <th colspan="3"></th>
+      <th> ID </th>
+      <th > Name </th>
+      <th > relation </th>
     </tr>
   </thead>
 
@@ -16,6 +17,7 @@
       <tr>
         <td><%= account.user_id %></td>
         <td><%= link_to account.name, account %></td>
+        <td><%= account.user_id == current_user.id ? "owner" : "invited" %></td>
       </tr>
     <% end %>
   </tbody>

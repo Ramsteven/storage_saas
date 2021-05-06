@@ -28,7 +28,7 @@
           <li class="nav-item">
             <%# <%= link_to ActsAsTenant.current_tenant ? "Account: #{ActsAsTenant.current_tenant.name}" : "nada", '#',  class: 'nav-link'%>
 
-            <%# <%= link_to ActsAsTenant.current_tenant.name   , '#',  class: 'nav-link'%>%>
+            <%=  link_to  @account ? "Account: #{@account.name}" : ActsAsTenant.current_tenant ? "Account: #{ActsAsTenant.current_tenant.name}" : "Not account select"    , '#',  class: 'nav-link'%>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -42,6 +42,19 @@
               <% end %>
             </div>
           </li>
+          <%# <li class="nav-item dropdown"> %>
+          <%#   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> %>
+          <%#     Change Box %> 
+          <%#   </a> %>
+          <%#   <div class="dropdown-menu text-center" aria-labelledby="navbarDropdownMenuLink"> %>
+          <%#     <% unless current_tenant.nil? %1> %>
+          <%#       <% current_tenant.boxes.each do | box | %1> %>
+          <%#         <a class="dropdown-item" href="#"> <%=  link_to box.description, box  %1></a> %>
+          <%#       <% end %1> %>
+          <%#     <% end %1> %>
+          <%#   </div> %>
+          <%# </li> %>
+
       <% end %>
       </ul>
   </div>
