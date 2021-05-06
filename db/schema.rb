@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_05_235246) do
+ActiveRecord::Schema.define(version: 2021_05_06_055217) do
 
   create_table "accounts", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -54,6 +54,7 @@ ActiveRecord::Schema.define(version: 2021_05_05_235246) do
     t.string "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "code"
     t.index ["account_id"], name: "index_boxes_on_account_id"
   end
 
@@ -82,6 +83,12 @@ ActiveRecord::Schema.define(version: 2021_05_05_235246) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["account_id"], name: "index_relations_on_account_id"
     t.index ["user_id"], name: "index_relations_on_user_id"
+  end
+
+  create_table "tickets", force: :cascade do |t|
+    t.string "code"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "users", force: :cascade do |t|

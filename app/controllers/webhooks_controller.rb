@@ -9,9 +9,7 @@ class WebhooksController < ApplicationController
 
     begin
       event = Stripe::Webhook.construct_event(
-        payload, sig_header ,"whsec_iXCiAmpkhdWcqYS0BGVxco4kLHUmmzJ5" )
-      # event = Stripe::Webhook.construct_event(
-      #   payload, sig_header, "whsec_iXCiAmpkhdWcqYS0BGVxco4kLHUmmzJ5"
+        payload, sig_header , ENV['WEB_TOKEN'])
     rescue JSON::ParserError => e
       puts "⚠️  Webhook error while parsing basic request. #{e.message})"
       status 400

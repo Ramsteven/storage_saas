@@ -1,4 +1,7 @@
+require 'rqrcode'
+
 class BoxesController < ApplicationController
+  
   before_action :set_box, only: %i[ show edit update destroy ]
   
   
@@ -24,7 +27,16 @@ class BoxesController < ApplicationController
     unless box_check
       @box = Box.new(box_params)
       respond_to do |format|
-        if @box.save 
+      if @box.save 
+        qrcode = RQRCode::QRCode.new("#{request.url}/#{@box.id}")
+        svg = qrcode.as_svg(
+          offset: 0,
+          color: '001',
+          shape_rendering: 'crispEdges',
+          module_size: 3,
+          standalone: true
+        )
+         @box.update(code: svg)
           format.html { redirect_to @box, notice: "Box was successfully created." }
           format.json { render :show, status: :created, location: @box }
         else
@@ -62,7 +74,11 @@ class BoxesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_box
-      @box = Box.find(params[:id])
+      begin
+        @box = Box.find(params[:id])
+      rescue
+        format.html { redirect_to boxes_url, notice: "You dont have this box" }
+      end
     end
 
     # Only allow a list of trusted parameters through.

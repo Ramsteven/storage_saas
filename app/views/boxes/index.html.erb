@@ -7,6 +7,7 @@
       <th>Account</th>
       <th>Name box</th>
       <th colspan="3">Actions</th>
+      <th>QrCode</th>
     </tr>
   </thead>
 
@@ -20,15 +21,17 @@
   <% end  %>
 </p>
 
-  <tbody>
+  <tbody >
     <% @boxes.each do |box| %>
-      <tr>
+      <tr  >
         <td><%= box.id %></td>
         <td><%= box.description %></td>
         <td><%= link_to 'Enter', box_items_path(box)%></td>
         <td><%= link_to 'Edit', edit_box_path(box) %></td>
         <td><%= link_to 'Destroy', box, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= box.code.html_safe %></td>
       </tr>
+        
     <% end %>
   </tbody>
 </table>
