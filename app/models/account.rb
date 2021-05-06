@@ -5,4 +5,5 @@ class Account < ApplicationRecord
   has_many :relations, dependent: :destroy 
   has_many :users, through: :relations
   has_many :boxes, dependent: :destroy
+  validates :name, presence: true
 end
