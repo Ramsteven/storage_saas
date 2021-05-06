@@ -19,7 +19,6 @@ class BoxesController < ApplicationController
   # GET /boxes/1/edit
   def edit
   end
-
   # POST /boxes or /boxes.json
   def create
     unless box_check

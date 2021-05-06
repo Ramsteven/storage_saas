@@ -1,24 +1,22 @@
 <h1>Listing items</h1>
 
-<table>
-  <tr>
-    <th>Description</th>
-    <th>Box</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @items.each do |item| %>
-  <tr>
-    <td><div class="text-center"><%= image_tag item.image.variant(resize_to_limit: [100, 100]) if item.image.attached?  %><br> <%= item.description %> </div></td>
-    <td><%= link_to 'Show', [item.box, item] %></td>
-    <td><%= link_to 'Edit', edit_box_item_path(item.box, item) %></td>
-    <td><%= link_to 'Destroy', [item.box, item], method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
+<div class="container  d-flex flex-wrap">
+  <% @items.each do |item| %>
+    <div class="m-4 ">
+      <%= image_tag item.image.variant(resize_to_limit: [100, 100]) if item.image.attached?  %><br> <strong>Description:</strong><%= item.description %> <br>
+      <%= link_to 'move', [item.box, item] %>
+      <%= link_to 'Edit', edit_box_item_path(item.box, item) %>
+      <%= link_to 'Destroy', [item.box, item], method: :delete, data: { confirm: 'Are you sure?' } %><br>
+        
+      <%= link_to item.in_use ? 'In Use' : 'Free', update_use_path( id:item.id, box_id: item.box_id), method: :put, class:"btn btn-warning btn-sm"%>
+      <% if item.in_use %>
+        <p style="color:red">object bussy cant moved.<p>
+      <% else %>
+        <p style="color:green">item fre can moved.<p>
+      <% end %>
+    </div>
 <% end %>
-</table>
-
+</div>
 <br />
 
 <%= link_to 'New Item', new_box_item_path(params[:box_id]) %>

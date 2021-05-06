@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
   before_action :set_box
-  before_action :set_item, only: [:show, :edit, :update, :destroy]
+  before_action :set_item, only: [:show, :edit, :update, :destroy,:update_use, :move ]
 
   # GET boxes/1/items
   def index
@@ -9,7 +9,6 @@ class ItemsController < ApplicationController
 
   # GET boxes/1/items/1
   def show
-    byebug
   end
 
   # GET boxes/1/items/new
@@ -24,7 +23,6 @@ class ItemsController < ApplicationController
   # POST boxes/1/items
   def create
     @item = @box.items.build(item_params)
-
     if @item.save
       redirect_to([@item.box, @item], notice: 'Item was successfully created.')
     else
@@ -47,7 +45,32 @@ class ItemsController < ApplicationController
 
     redirect_to box_items_url(@box)
   end
+  
+  def update_use
+    if @item.in_use == false
+      @item.update(in_use:toggle(@item.in_use), using_by: current_user.email)
+      redirect_to box_items_path(@item.box_id )
+    else
+      if current_user.email == @item.using_by
+        @item.update(in_use:toggle(@item.in_use), using_by: :null)
+        redirect_to box_items_path(@item.box_id )
+      else
+        redirect_to box_items_path(@item.box_id ), notice: "only #{@item.using_by} can stop using this item"
+      end
+    end
+  end
 
+
+  def move
+    new_id = Box.find_by(description: params[:box]).id
+    unless @item.in_use
+      @item.update(box_id: new_id )
+      redirect_to @box , notice: "This item was moved successfully"
+    else
+      redirect_to([@item.box, @item], notice: "This item is been used can't be moved currently used by #{@item.using_by}")
+    end
+  end
+ 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_box
@@ -61,5 +84,13 @@ class ItemsController < ApplicationController
     # Only allow a trusted parameter "white list" through.
     def item_params
       params.require(:item).permit(:description, :image)
+    end
+
+    def toggle(value)
+      if value
+        value = false
+      else
+        value = true
+      end
     end
 end

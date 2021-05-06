@@ -1,4 +1,3 @@
-<p id="notice"><%= notice %></p>
 
 <p>
   <b>Description:</b>
@@ -10,9 +9,11 @@
         resize_to_limit: [100, 100]
       )%>
 
-      <%= form_with url: "#{request.original_url}"  do |form| %>
+      <%= form_with url: '/move_item'  do |form| %>
         <%= form.label :box, "Please put the box to move:" %><br/>
-        <%= form.select :box, current_tenant.boxes.map(&:description) %>
+        <%= form.select :box, current_tenant.boxes.map(&:description).excluding(Box.find(@item.box_id).description) << ("") %>
+        <%= hidden_field_tag :id, @item.id %>
+        <%= hidden_field_tag :box_id, @item.box_id %>
         <%= form.submit "move" %>
      <% end %>
 

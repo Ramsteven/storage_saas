@@ -3,11 +3,13 @@ Rails.application.routes.draw do
   resources :boxes do
     resources :items
   end
-  namespace :box do
-    resources :items do
-      post '/move', to: 'boxes#move'
-    end
-  end
+  # namespace :box do
+  #   resources :items do
+  #   end
+  # end
+  put '/update_use', to: 'items#update_use'
+  post '/move_item', to: 'items#move'
+
 
   resources :accounts do
     post '/invite', to: 'relations#invite_user'
